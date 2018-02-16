@@ -8,15 +8,18 @@
           "type": "GUEST_NAMES"
         }
       ]
-    }
+    },
     {
-      "intent" : "QuoteIntent",
-    }
+      "intent" : "QuoteIntent"
+    },
     {
-      "intent" : "NextQuoteIntent",
-    }
+      "intent" : "NextQuoteIntent"
+    },
     {
-      "intent" : "AMAZON.StopIntent",
+      "intent" : "AMAZON.StopIntent"
+    },
+    {
+      "intent" : "AMAZON.CancelIntent"
     }
   ]
 }

@@ -2,7 +2,6 @@
 var http = require("http")
 
 exports.handler = function(event, context) {
-
   try {
     var request = event.request
     var session = event.session
@@ -15,17 +14,26 @@ exports.handler = function(event, context) {
       handleLaunchRequest(context)
     }
     else if (request.type == "IntentRequest") {
-      if (request.intent.name === "HelloIntent") {
-        handleHelloIntent(request, context)
-      }
-      else if (request.intent.name === "QuoteIntent") {
-        handleQuoteIntent(request, context, session)
-      }
-      else if (request.intent.name === "NextQuoteIntent") {
-        handleNextQuoteIntent(request, context, session)
-      }
-      else {
-        throw "Unknown intent"
+
+      switch(request.intent.name) {
+        case "HelloIntent":
+          handleHelloIntent(request, context)
+          break
+    
+        case "QuoteIntent":
+          handleQuoteIntent(request, context, session)
+          break
+        
+        case "NextQuoteIntent":
+          handleNextQuoteIntent(request, context, session)
+          break
+
+        case "AMAZON.StopIntent" || "AMAZON.CancelIntent":
+          handleStopIntent(request, context, session)
+          break
+      
+        default: 
+          throw "Unknown intent"
       }
     }
     else if (request.type == "SessionEndedRequest") {
@@ -107,6 +115,29 @@ function buildResponse(options) {
   if (options.session && options.session.attributes) {
     response.sessionAttributes = options.session.attributes
   }
+
+  if (options.cardTitle) {
+    response.response.card = {
+      type: "Simple",
+      title: options.cardTitle,
+    }
+
+    if (options.imageURL) {
+      response.response.card.type = "Standard"
+      response.response.card.text = options.cardContent
+      response.response.card.image = {
+        smallImageUrl: options.imageURL,
+        largeImageUrl: options.imageURL
+      }
+    }
+    else {
+      response.response.card.content = options.cardContent
+    }
+
+    if (options.cardContent) {
+
+    }
+  }
   
   return response  
 }
@@ -126,19 +157,22 @@ function handleHelloIntent(request, context) {
   let name = request.intent.slots.FirstName.value
   options.speechText = `Hello ${name}. ` + getGreeting()
   options.speechText += ` That\'s spelt as <say-as interpret-as="spell-out">${name}</say-as>, isn\'t it?`
+  options.cardTitle = `Hello ${name}`
   getQuote(function(quote, err){
     if (err) {
       context.fail(err)
     }
     else {
       options.speechText += ` Here\'s a nice quote for you: ${quote}`
+      options.cardContent = quote
+      options.imageURL = "https://upload.wikimedia.org/wikipedia/commons/5/5b/Hello_smile.png"
       options.endSession = true;
       context.succeed(buildResponse(options))
     }
   })
 }
 
-handleQuoteIntent(request, context, session) {
+function handleQuoteIntent(request, context, session) {
   let options = {}
   options.session = session
 
@@ -157,7 +191,7 @@ handleQuoteIntent(request, context, session) {
   })
 }
 
-handleQuoteIntent(request, context, session) {
+function handleNextQuoteIntent(request, context, session) {
   let options = {}
 
   if (session.attributes.quoteIntent) {
@@ -177,6 +211,14 @@ handleQuoteIntent(request, context, session) {
   else {
     options.speechText = "Wrong invocation of this intent"
     options.endSession = true
+    context.succeed(buildResponse(options))
   }
+}
 
+function handleStopIntent(request, context, session) {
+  let options = {}
+
+  options.speechText = "Good bye."
+  options.endSession = true
+  context.succeed(buildResponse(options))
 }
