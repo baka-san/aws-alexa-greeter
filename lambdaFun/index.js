@@ -3,6 +3,10 @@ var http = require("http")
 
 exports.handler = function(event, context) {
   try {
+    if (process.env.NODE_DEBUG_EN ) {
+      console.log("\nREQUEST:\n" + JSON.stringify(event,null,2)) 
+    }
+
     var request = event.request
     var session = event.session
 
@@ -138,6 +142,11 @@ function buildResponse(options) {
 
     }
   }
+
+  if (process.env.NODE_DEBUG_EN ) {
+    console.log("\nRESPONSE:\n" + JSON.stringify(response, null, 2)) 
+  }
+
   
   return response  
 }
