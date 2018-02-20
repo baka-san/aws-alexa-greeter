@@ -156,7 +156,7 @@ function handleLaunchRequest(context) {
   let options = {}
   options.speechText = "Welcome to Greetings skill. Using this skill you can greet your guests. Who do you want to greet?"
   options.repromptText = "For example, you can say hello to John. Who would you like to greet?"
-  options.endSession = false;
+  options.endSession = false
 
   context.succeed(buildResponse(options))
 }

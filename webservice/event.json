@@ -19,7 +19,7 @@
           "value": "John"
         }
       },
-      "name": "QuoteIntent"
+      "name": "HelloIntent"
     },
     "type": "IntentRequest",
     "requestId": "request5678"
