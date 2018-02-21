@@ -16,7 +16,7 @@ def hello():
 def alexa():
   event = request.get_json()
 
-  print '\nREQUEST:\n'
+  print('\nREQUEST:\n')
   print json.dumps(event, indent=2, sort_keys=True)
 
   req = event['request']
@@ -113,7 +113,7 @@ class Response(object):
         }
       }
 
-    print '\nRESPONSE:\n'
+    print('\nRESPONSE:\n')
     print json.dumps(fnl_res, indent=2, sort_keys=True)
 
     http_response = make_response(json.dumps(fnl_res))
