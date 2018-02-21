@@ -16,8 +16,8 @@ def hello():
 def alexa():
   event = request.get_json()
 
-  print('\nREQUEST:\n')
-  print json.dumps(event, indent=2, sort_keys=True)
+  # print('\nREQUEST:\n')
+  # print json.dumps(event, indent=2, sort_keys=True)
 
   req = event['request']
 
@@ -26,10 +26,6 @@ def alexa():
 
   elif req['type'] == 'IntentRequest':
     if req['intent']['name'] == 'HelloIntent':
-      # print(handle_hello_intent(req))
-      # print("start")
-      # print(message['response'])
-      # print("end")
 
       return handle_hello_intent(req)
     # elif req['intent']['name'] == 'QuoteIntent':
@@ -113,8 +109,8 @@ class Response(object):
         }
       }
 
-    print('\nRESPONSE:\n')
-    print json.dumps(fnl_res, indent=2, sort_keys=True)
+    # print('\nRESPONSE:\n')
+    # print json.dumps(fnl_res, indent=2, sort_keys=True)
 
     http_response = make_response(json.dumps(fnl_res))
     http_response.headers['Content-Type'] = 'application/json'
@@ -123,7 +119,7 @@ class Response(object):
 if __name__ == '__main__':
   # app.run(debug=True)
   port = int(os.getenv('PORT', 5000))
-  print "Starting app on port %d" % port
+  # print "Starting app on port %d" % port
   app.run(debug=False, port=port, host='0.0.0.0')
 
 
