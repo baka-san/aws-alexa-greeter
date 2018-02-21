@@ -3,6 +3,8 @@ from flask import request
 from flask import make_response
 import json
 import datetime
+import os
+import logging
 
 app = Flask(__name__)
 
@@ -119,6 +121,9 @@ class Response(object):
     return http_response
 
 if __name__ == '__main__':
-  app.run(debug=True)
+  # app.run(debug=True)
+  port = int(os.getenv('PORT', 5000))
+  print "Starting app on port %d" % port
+  app.run(debug=False, port=port, host='0.0.0.0')
 
 

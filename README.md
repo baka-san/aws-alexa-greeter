@@ -1,6 +1,6 @@
 # AWS Alexa Greeter
 
-### Section 1: Greeting using an AWS Lambda function  
+### Section 1: Greeter skill using an AWS Lambda function  
 #### **Code found at:** 
 
 **Description**  
@@ -30,3 +30,10 @@ Greeter will ask you if you'd like to hear another quote. You can respond with p
 > Stop
 
 Both simple and standard [cards](https://developer.amazon.com/docs/custom-skills/include-a-card-in-your-skills-response.html) (i.e. has an image) are available to be viewed on appropriate devices.
+
+### Section 1: Greeter skill using a web service as an end point
+#### **Code found at:** 
+
+
+**Description**  
+Code was written with Python and the Flask web framework. The site can be deployed both local web server like Ngrok or on a Heroku.
