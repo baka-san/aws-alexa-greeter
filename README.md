@@ -31,7 +31,7 @@ Greeter will ask you if you'd like to hear another quote. You can respond with p
 
 Both simple and standard [cards](https://developer.amazon.com/docs/custom-skills/include-a-card-in-your-skills-response.html) (i.e. has an image) are available to be viewed on appropriate devices.
 
-### Section 1: Greeter skill using a web service as an end point
+### Section 2: Greeter skill using a web service as an end point
 #### **Code found at:** 
 
 

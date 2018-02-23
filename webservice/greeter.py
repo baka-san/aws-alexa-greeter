@@ -46,7 +46,7 @@ def handle_hello_intent(req):
   name = req['intent']['slots']['FirstName']['value']
   res = Response()
   res.speech_text = "Hello {0} .".format(name)
-  res.speech_text += " That\'s spelt as <say-as interpret-as='spell-out'>{0}</say-as>, isn\'t it?".format(name)
+  res.speech_text += " That\'s spelt as <say-as interpret-as='spell-out'>{0}</say-as>, isn\'t it? ".format(name)
   res.speech_text += get_greeting()
 
   return res.build_response()
