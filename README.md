@@ -37,3 +37,6 @@ Both simple and standard [cards](https://developer.amazon.com/docs/custom-skills
 
 **Description**  
 Code was written with Python and the Flask web framework. The site can be deployed both local web server like Ngrok or on a Heroku.
+
+
+See the full tutorial on [Udemy](https://www.udemy.com/comprehensive-alexa-skill-development-course/learn/v4/overview).

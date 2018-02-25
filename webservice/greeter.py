@@ -8,6 +8,9 @@ import logging
 
 app = Flask(__name__)
 
+if os.getenv('GREETER_DEBUG_EN', False):
+  logging.basicConfig(level=logging.DEBUG)
+
 @app.route('/')
 def hello():
   return 'Hello World!'
@@ -18,6 +21,8 @@ def alexa():
 
   # print('\nREQUEST:\n')
   # print json.dumps(event, indent=2, sort_keys=True)
+  logging.debug('\nREQUEST:')
+  logging.debug(event)
 
   req = event['request']
 
@@ -102,7 +107,7 @@ class Response(object):
     }
 
     if self.reprompt_text:
-      fnl_res['response']['reprompt_text'] = {
+      fnl_res['response']['reprompt'] = {
         'outputSpeech': {
           'type': 'SSML',
           'ssml': '<speak>{0}</speak>'.format(self.reprompt_text)
@@ -111,6 +116,10 @@ class Response(object):
 
     # print('\nRESPONSE:\n')
     # print json.dumps(fnl_res, indent=2, sort_keys=True)
+
+    logging.debug('\nRESPONSE:')
+    logging.debug(fnl_res)
+    logging.debug('\n')
 
     http_response = make_response(json.dumps(fnl_res))
     http_response.headers['Content-Type'] = 'application/json'
