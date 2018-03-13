@@ -61,8 +61,7 @@ def session_ended():
 
 def get_quote():
   req = requests.get('http://api.forismatic.com/api/1.0/json?method=getQuote&lang=en&format=json')
-  # print("req")
-  # print(req.content)
+  req._content = req._content.decode('unicode_escape').encode('ascii','ignore')
   req._content = req._content.replace('\\',"")
   quote = req.json()['quoteText']
   return quote
@@ -88,10 +87,10 @@ def get_ssml(msg):
 
 
 if __name__ == '__main__':
-  # if 'ASK_VERIFY_REQUESTS' in os.environ:
-  #     verify = str(os.environ.get('ASK_VERIFY_REQUESTS', '')).lower()
-  #     if verify == 'false':
-  #       app.config['ASK_VERIFY_REQUESTS'] = False
-  app.run()
+  port = int(os.getenv('PORT', 5000))
+  print "Starting app on port %d" % port
+  app.run(debug=False, port=port, host='0.0.0.0')
+
+  # app.run()
 
 
